@@ -38,4 +38,21 @@ const getTestsByUser = async (req, res) => {
   res.json(tests);
 };
 
-module.exports = { createTest, submitTest, getTestsByUser };
+const getAllTests = async (req, res) => {
+  try {
+    // For admin, return all tests
+    // For regular users, return only their tests
+    if (req.user.role === 'admin') {
+      const tests = await Test.find({}).populate('subject', 'name').sort('-createdAt');
+      return res.json(tests);
+    } else {
+      const tests = await Test.find({ user: req.user._id }).populate('subject', 'name').sort('-createdAt');
+      return res.json(tests);
+    }
+  } catch (error) {
+    console.error('Error fetching all tests:', error);
+    res.status(500).json({ message: 'Failed to fetch tests' });
+  }
+};
+
+module.exports = { createTest, submitTest, getTestsByUser, getAllTests };

@@ -7,6 +7,7 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const subjectRoutes = require('./routes/subjectRoutes');
 const questionRoutes = require('./routes/questionRoutes');
 const testRoutes = require('./routes/testRoutes');
+const adminStatsRoutes = require('./routes/adminStatsRoutes');
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/subjects', subjectRoutes);
 app.use('/api/questions', questionRoutes);
 app.use('/api/tests', testRoutes);
+app.use('/api/admin-stats', adminStatsRoutes);
 
 const PORT = process.env.PORT || 5000;
 
